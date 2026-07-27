@@ -37,6 +37,10 @@ app.use('/api', generalLimiter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get('/', (req, res) => {
+  res.json({ status: 'ok', service: 'smart-task-manager' });
+});
+
+app.get('/', (req, res) => {
   res.send('API is running');
 });
 app.use('/api/v1/tasks', taskRouter);
