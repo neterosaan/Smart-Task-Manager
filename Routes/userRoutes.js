@@ -1,17 +1,16 @@
-const express = require("express");
-const rateLimit = require("express-rate-limit");
-const authController = require("../Controllers/authController");
+const express = require('express');
+const rateLimit = require('express-rate-limit');
+const authController = require('../Controllers/authController');
 
 const router = express.Router();
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: process.env.NODE_ENV === "test" ? 1000 : 10,
+  max: process.env.NODE_ENV === 'test' ? 1000 : 10,
   standardHeaders: true,
   legacyHeaders: false,
-  message: "Too many attempts from this IP, please try again in 15 minutes.",
+  message: 'Too many attempts from this IP, please try again in 15 minutes.',
 });
-
 
 /**
  * @swagger
@@ -55,8 +54,7 @@ const authLimiter = rateLimit({
  *       409:
  *         description: User already exists
  */
-router.post("/signup", authLimiter, authController.signup);
-
+router.post('/signup', authLimiter, authController.signup);
 
 /**
  * @swagger
@@ -89,8 +87,7 @@ router.post("/signup", authLimiter, authController.signup);
  *       401:
  *         description: Incorrect email or password
  */
-router.post("/login", authLimiter, authController.login);
-
+router.post('/login', authLimiter, authController.login);
 
 /**
  * @swagger
@@ -106,8 +103,7 @@ router.post("/login", authLimiter, authController.login);
  *       401:
  *         description: Refresh token is missing, invalid, or expired
  */
-router.post("/refresh-token", authController.refreshToken);
-
+router.post('/refresh-token', authController.refreshToken);
 
 /**
  * @swagger
@@ -121,8 +117,7 @@ router.post("/refresh-token", authController.refreshToken);
  *       200:
  *         description: Logout successful
  */
-router.post("/logout", authController.logout);
-
+router.post('/logout', authController.logout);
 
 /**
  * @swagger
@@ -150,12 +145,7 @@ router.post("/logout", authController.logout);
  *       404:
  *         description: User not found
  */
-router.post(
-  "/forgotPassword",
-  authLimiter,
-  authController.forgotPassword
-);
-
+router.post('/forgotPassword', authLimiter, authController.forgotPassword);
 
 /**
  * @swagger
@@ -195,15 +185,9 @@ router.post(
  *       400:
  *         description: Invalid or expired reset token
  */
-router.patch(
-  "/resetPassword/:token",
-  authLimiter,
-  authController.resetPassword
-);
-
+router.patch('/resetPassword/:token', authLimiter, authController.resetPassword);
 
 router.use(authController.protect);
-
 
 /**
  * @swagger
@@ -217,8 +201,7 @@ router.use(authController.protect);
  *       401:
  *         description: Unauthorized - Access token is missing or invalid
  */
-router.get("/me", authController.getMe);
-
+router.get('/me', authController.getMe);
 
 /**
  * @swagger
@@ -257,10 +240,6 @@ router.get("/me", authController.getMe);
  *       401:
  *         description: Unauthorized - Access token is missing or invalid
  */
-router.patch(
-  "/updateMypassword",
-  authController.updatePassword
-);
-
+router.patch('/updateMypassword', authController.updatePassword);
 
 module.exports = router;

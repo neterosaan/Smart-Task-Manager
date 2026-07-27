@@ -1,9 +1,8 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const authController = require("../Controllers/authController");
-const teamController = require("../Controllers/teamController");
-const inviteController = require("../Controllers/inviteController");
-
+const authController = require('../Controllers/authController');
+const teamController = require('../Controllers/teamController');
+const inviteController = require('../Controllers/inviteController');
 
 /**
  * @swagger
@@ -17,12 +16,7 @@ const inviteController = require("../Controllers/inviteController");
  *       401:
  *         description: Unauthorized - Access token is missing or invalid
  */
-router.get(
-  "/",
-  authController.protect,
-  teamController.getAllTeams
-);
-
+router.get('/', authController.protect, teamController.getAllTeams);
 
 /**
  * @swagger
@@ -50,12 +44,7 @@ router.get(
  *       401:
  *         description: Unauthorized - Access token is missing or invalid
  */
-router.post(
-  "/",
-  authController.protect,
-  teamController.createTeam
-);
-
+router.post('/', authController.protect, teamController.createTeam);
 
 /**
  * @swagger
@@ -69,12 +58,7 @@ router.post(
  *       401:
  *         description: Unauthorized - Access token is missing or invalid
  */
-router.get(
-  "/invites",
-  authController.protect,
-  inviteController.getUserInvites
-);
-
+router.get('/invites', authController.protect, inviteController.getUserInvites);
 
 /**
  * @swagger
@@ -97,12 +81,7 @@ router.get(
  *       404:
  *         description: Invitation not found
  */
-router.patch(
-  "/invites/:inviteId/accept",
-  authController.protect,
-  inviteController.acceptInvite
-);
-
+router.patch('/invites/:inviteId/accept', authController.protect, inviteController.acceptInvite);
 
 /**
  * @swagger
@@ -125,12 +104,7 @@ router.patch(
  *       404:
  *         description: Invitation not found
  */
-router.patch(
-  "/invites/:inviteId/decline",
-  authController.protect,
-  inviteController.declineInvite
-);
-
+router.patch('/invites/:inviteId/decline', authController.protect, inviteController.declineInvite);
 
 /**
  * @swagger
@@ -153,12 +127,7 @@ router.patch(
  *       404:
  *         description: Team not found or unauthorized
  */
-router.get(
-  "/:teamId",
-  authController.protect,
-  teamController.getTeam
-);
-
+router.get('/:teamId', authController.protect, teamController.getTeam);
 
 /**
  * @swagger
@@ -216,18 +185,9 @@ router.get(
  *       404:
  *         description: Team not found or user is not a team member
  */
-router.post(
-  "/:teamId/tasks",
-  authController.protect,
-  teamController.createTaskForTeam
-);
+router.post('/:teamId/tasks', authController.protect, teamController.createTaskForTeam);
 
-router.get(
-  "/:teamId/tasks",
-  authController.protect,
-  teamController.getTasksForTeam
-);
-
+router.get('/:teamId/tasks', authController.protect, teamController.getTasksForTeam);
 
 /**
  * @swagger
@@ -280,18 +240,9 @@ router.get(
  *       404:
  *         description: Team or task not found, or user is not a team member
  */
-router.patch(
-  "/:teamId/tasks/:taskId",
-  authController.protect,
-  teamController.completeTask
-);
+router.patch('/:teamId/tasks/:taskId', authController.protect, teamController.completeTask);
 
-router.get(
-  "/:teamId/tasks/:taskId",
-  authController.protect,
-  teamController.getTaskForTeam
-);
-
+router.get('/:teamId/tasks/:taskId', authController.protect, teamController.getTaskForTeam);
 
 /**
  * @swagger
@@ -320,12 +271,7 @@ router.get(
  *       404:
  *         description: Team or member not found
  */
-router.delete(
-  "/:teamId/members/:memberId",
-  authController.protect,
-  teamController.deleteMember
-);
-
+router.delete('/:teamId/members/:memberId', authController.protect, teamController.deleteMember);
 
 /**
  * @swagger
@@ -363,11 +309,6 @@ router.delete(
  *       404:
  *         description: Team or user not found
  */
-router.post(
-  "/:teamId/invite",
-  authController.protect,
-  inviteController.sendInvite
-);
-
+router.post('/:teamId/invite', authController.protect, inviteController.sendInvite);
 
 module.exports = router;

@@ -3,7 +3,6 @@ const taskController = require('../Controllers/taskControllers');
 const router = express.Router();
 const authController = require('../Controllers/authController');
 
-
 /**
  * @swagger
  * /tasks:
@@ -16,12 +15,7 @@ const authController = require('../Controllers/authController');
  *       401:
  *         description: Unauthorized - Access token is missing or invalid
  */
-router.get(
-  '/',
-  authController.protect,
-  taskController.getAllTasks
-);
-
+router.get('/', authController.protect, taskController.getAllTasks);
 
 /**
  * @swagger
@@ -57,12 +51,7 @@ router.get(
  *       401:
  *         description: Unauthorized - Access token is missing or invalid
  */
-router.post(
-  '/',
-  authController.protect,
-  taskController.createTask
-);
-
+router.post('/', authController.protect, taskController.createTask);
 
 /**
  * @swagger
@@ -76,12 +65,7 @@ router.post(
  *       401:
  *         description: Unauthorized - Access token is missing or invalid
  */
-router.delete(
-  '/',
-  authController.protect,
-  taskController.deleteUnfinishedTask
-);
-
+router.delete('/', authController.protect, taskController.deleteUnfinishedTask);
 
 /**
  * @swagger
@@ -166,6 +150,5 @@ router.delete(
 router.get('/:id', authController.protect, taskController.getTask);
 router.patch('/:id', authController.protect, taskController.updateTask);
 router.delete('/:id', authController.protect, taskController.deleteTask);
-
 
 module.exports = router;

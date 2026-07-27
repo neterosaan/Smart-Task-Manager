@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest'
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest';
 
 import request from 'supertest';
 const app = require('../app');
@@ -33,7 +33,7 @@ describe('Archive-on-complete transition (Task -> CompletedTask)', () => {
       });
     if (res.status !== 201) {
       throw new Error(
-        `createUser test helper failed: signup returned ${res.status} - ${JSON.stringify(res.body)}`,
+        `createUser test helper failed: signup returned ${res.status} - ${JSON.stringify(res.body)}`
       );
     }
     return { token: res.body.accessToken, userId: res.body.data.user._id };
@@ -55,7 +55,7 @@ describe('Archive-on-complete transition (Task -> CompletedTask)', () => {
       });
     if (res.status !== 201) {
       throw new Error(
-        `createTask test helper failed: got ${res.status} - ${JSON.stringify(res.body)}`,
+        `createTask test helper failed: got ${res.status} - ${JSON.stringify(res.body)}`
       );
     }
     return res.body.data.task;

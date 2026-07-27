@@ -1,37 +1,33 @@
-const cron = require("node-cron");
-const Task = require("../models/taskModel");
-const Email = require("../utils/email");
-const catchAsync = require("../utils/catchAsync");
-const ActivityLog = require("../models/activityLogModel");
-const completedTaskModel = require("../models/completedTaskModel");
-const { addDays, addMonths } = require("date-fns");
+const cron = require('node-cron');
+const Task = require('../models/taskModel');
+const Email = require('../utils/email');
+const catchAsync = require('../utils/catchAsync');
+const ActivityLog = require('../models/activityLogModel');
+const completedTaskModel = require('../models/completedTaskModel');
+const { addDays, addMonths } = require('date-fns');
 
 const sendEmailReminder = catchAsync(async () => {
   const now = Date.now();
 
   const tasks = await Task.find({
     $or: [
-      { reminder: { $lte: now }, dontDistrub: false, recurrence: "none" },
-      { dueDate: { $lte: now }, status: "Pending", recurrence: "none" },
+      { reminder: { $lte: now }, dontDistrub: false, recurrence: 'none' },
+      { dueDate: { $lte: now }, status: 'Pending', recurrence: 'none' },
     ],
-  }).populate("user");
-
+  }).populate('user');
 
   if (tasks.length === 0) return;
 
   for (const task of tasks) {
-
-
     let update = false;
 
-    if (task.dueDate?.getTime() <= now && task.status === "Pending") {
-      task.status = "Unfinished";
+    if (task.dueDate?.getTime() <= now && task.status === 'Pending') {
+      task.status = 'Unfinished';
       update = true;
       await task.save({ validateBeforeSave: false });
     }
 
-    if (!task.user || !task.user.email || task.status === "Unfinished")
-      continue;
+    if (!task.user || !task.user.email || task.status === 'Unfinished') continue;
 
     const url = `${process.env.FRONTEND_URL}/api/v1/tasks/${task.id}`;
 
@@ -40,9 +36,7 @@ const sendEmailReminder = catchAsync(async () => {
       task.dontDistrub = true;
       update = true;
     } catch (err) {
-      console.error(
-        `Failed to send email to ${task.user.email}: ${err.message}`,
-      );
+      console.error(`Failed to send email to ${task.user.email}: ${err.message}`);
     }
 
     if (update) {
@@ -56,39 +50,36 @@ const recurrenceLgocic = catchAsync(async () => {
 
   try {
     const tasks = await Task.find({
-      recurrence: { $ne: "none" },
+      recurrence: { $ne: 'none' },
       dueDate: { $lte: now },
-      status: { $ne: "Completed" },
+      status: { $ne: 'Completed' },
     });
 
     for (const task of tasks) {
       await ActivityLog.create({
         user: task.user,
         task: task._id,
-        actionType: "task_missed",
+        actionType: 'task_missed',
       });
 
       const nextDueDate = getNextDueDate(task.dueDate, task.recurrence);
       task.dueDate = nextDueDate;
-      task.createdAt = new Date(); 
+      task.createdAt = new Date();
       await task.save();
     }
 
     const completedTasks = await completedTaskModel.find({
-      recurrence: { $ne: "none" },
+      recurrence: { $ne: 'none' },
       dueDate: { $lte: now },
     });
 
     for (const completeTask of completedTasks) {
-      const nextDueDate = getNextDueDate(
-        completeTask.dueDate,
-        completeTask.recurrence,
-      );
+      const nextDueDate = getNextDueDate(completeTask.dueDate, completeTask.recurrence);
 
       await Task.create({
         title: completeTask.title,
         description: completeTask.description,
-        status: "Pending",
+        status: 'Pending',
         priority: completeTask.priority,
         dueDate: nextDueDate,
         recurrence: completeTask.recurrence,
@@ -100,7 +91,7 @@ const recurrenceLgocic = catchAsync(async () => {
       await completeTask.save();
     }
   } catch (err) {
-    console.error("Error in task cron job:", err);
+    console.error('Error in task cron job:', err);
   }
 });
 
@@ -108,20 +99,20 @@ function getNextDueDate(currentDueDate, recurrence) {
   const now = new Date(currentDueDate);
 
   switch (recurrence) {
-    case "daily":
+    case 'daily':
       return addDays(now, 1);
-    case "weekly":
+    case 'weekly':
       return addDays(now, 7);
-    case "monthly":
+    case 'monthly':
       return addMonths(now, 1);
     default:
-      return now; 
+      return now;
   }
 }
 
 const startReminderCron = () => {
-  cron.schedule("* * * * *", recurrenceLgocic);
-  cron.schedule("* * * * *", sendEmailReminder);
+  cron.schedule('* * * * *', recurrenceLgocic);
+  cron.schedule('* * * * *', sendEmailReminder);
 };
 
 module.exports = { startReminderCron, sendEmailReminder, recurrenceLgocic };

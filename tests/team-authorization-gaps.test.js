@@ -25,7 +25,8 @@ const generateToken = (id) => {
 
 describe('Team & Invite Authorization Gaps', () => {
   let ownerToken, nonMemberToken, uninvitedUserToken;
-  let team, inviteToken = 'sample-invite-token';
+  let team,
+    inviteToken = 'sample-invite-token';
 
   beforeAll(async () => {
     await connectTestDb();

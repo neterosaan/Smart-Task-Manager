@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest'
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest';
 
 import request from 'supertest';
 const app = require('../app');
@@ -39,7 +39,7 @@ describe('Task recurrence & due-date pre-save logic', () => {
       });
     if (res.status !== 201) {
       throw new Error(
-        `createUser test helper failed: signup returned ${res.status} - ${JSON.stringify(res.body)}`,
+        `createUser test helper failed: signup returned ${res.status} - ${JSON.stringify(res.body)}`
       );
     }
     return { token: res.body.accessToken, userId: res.body.data.user._id };
@@ -73,9 +73,7 @@ describe('Task recurrence & due-date pre-save logic', () => {
         .send(baseTask({ recurrence: 'none', dueDate }));
 
       expect(res.status).toBe(201);
-      expect(new Date(res.body.data.task.dueDate).getTime()).toBe(
-        new Date(dueDate).getTime(),
-      );
+      expect(new Date(res.body.data.task.dueDate).getTime()).toBe(new Date(dueDate).getTime());
     });
 
     it('sets reminder to createdAt + 1/4 of the (dueDate - createdAt) interval', async () => {
@@ -91,7 +89,7 @@ describe('Task recurrence & due-date pre-save logic', () => {
       const { createdAt, dueDate: savedDueDate, reminder } = res.body.data.task;
       const expectedReminder = Math.trunc(
         new Date(createdAt).getTime() +
-          (new Date(savedDueDate).getTime() - new Date(createdAt).getTime()) / 4,
+          (new Date(savedDueDate).getTime() - new Date(createdAt).getTime()) / 4
       );
 
       expect(new Date(reminder).getTime()).toBe(expectedReminder);
@@ -110,7 +108,7 @@ describe('Task recurrence & due-date pre-save logic', () => {
           baseTask({
             recurrence: 'daily',
             dueDate: new Date(Date.now() + 30 * DAY_MS).toISOString(),
-          }),
+          })
         );
 
       expect(res.status).toBe(201);
@@ -167,7 +165,7 @@ describe('Task recurrence & due-date pre-save logic', () => {
           baseTask({
             recurrence: 'none',
             dueDate: new Date(Date.now() + 30 * DAY_MS).toISOString(),
-          }),
+          })
         );
       const before = Date.now();
 
@@ -182,7 +180,6 @@ describe('Task recurrence & due-date pre-save logic', () => {
   });
 
   describe('reminder immutability on update (known limitation)', () => {
-
     it('does NOT recalculate reminder when dueDate is changed on an existing task', async () => {
       const { token } = await createUser();
       const createRes = await request(app)
@@ -192,7 +189,7 @@ describe('Task recurrence & due-date pre-save logic', () => {
           baseTask({
             recurrence: 'none',
             dueDate: new Date(Date.now() + 4 * DAY_MS).toISOString(),
-          }),
+          })
         );
       const originalReminder = createRes.body.data.task.reminder;
       expect(originalReminder).toBeTruthy();
@@ -205,7 +202,7 @@ describe('Task recurrence & due-date pre-save logic', () => {
       expect(res.status).toBe(200);
 
       expect(new Date(res.body.data.task.reminder).getTime()).toBe(
-        new Date(originalReminder).getTime(),
+        new Date(originalReminder).getTime()
       );
     });
   });

@@ -2,6 +2,6 @@ services:
   mongo-test:
     image: mongo:latest
     ports:
-      - "27019:27017"
+      - '27019:27017'
     tmpfs:
       - /data/db

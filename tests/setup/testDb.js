@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
 const connectTestDb = async () => {
-
   await mongoose.connect(process.env.MONGO_URI);
-
 };
 
 const resetDb = async () => {

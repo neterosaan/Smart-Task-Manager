@@ -1,6 +1,4 @@
-import { describe, it, expect, beforeAll, beforeEach, afterAll, vi } from 'vitest'
-
-
+import { describe, it, expect, beforeAll, beforeEach, afterAll, vi } from 'vitest';
 
 import request from 'supertest';
 const app = require('../app');
@@ -50,7 +48,7 @@ describe('Auth', () => {
         .post('/api/v1/users/signup')
         .send({ ...validUser, name: 'alicetoo' });
 
-      expect(res.status).toBe(400);  
+      expect(res.status).toBe(400);
     });
 
     it('sets an httpOnly refresh token cookie', async () => {
@@ -70,7 +68,7 @@ describe('Auth', () => {
       const res = await request(app)
         .post('/api/v1/users/login')
         .send({ email: 'alice@test.com', password: 'password123' });
-    
+
       expect(res.status).toBe(200);
       expect(res.body.accessToken).toBeDefined();
     });
@@ -85,9 +83,7 @@ describe('Auth', () => {
     });
 
     it('rejects a missing password with a 400', async () => {
-      const res = await request(app)
-        .post('/api/v1/users/login')
-        .send({ email: 'alice@test.com' });
+      const res = await request(app).post('/api/v1/users/login').send({ email: 'alice@test.com' });
 
       expect(res.status).toBe(400);
     });

@@ -23,10 +23,7 @@ describe('Auth - Password Reset Flow & Edge Cases', () => {
 
   it('should issue a password reset token and update password successfully', async () => {
     const plainResetToken = 'test-known-reset-token-123456';
-    const hashedResetToken = crypto
-      .createHash('sha256')
-      .update(plainResetToken)
-      .digest('hex');
+    const hashedResetToken = crypto.createHash('sha256').update(plainResetToken).digest('hex');
 
     if (User.prototype.createPasswordResetToken) {
       vi.spyOn(User.prototype, 'createPasswordResetToken').mockImplementation(function () {
@@ -49,17 +46,17 @@ describe('Auth - Password Reset Flow & Edge Cases', () => {
 
     expect(forgotRes.status).toBe(200);
 
-    const updatedUser = await User.findById(user._id).select('+passwordResetToken +passwordResetExpires');
+    const updatedUser = await User.findById(user._id).select(
+      '+passwordResetToken +passwordResetExpires'
+    );
     expect(updatedUser.passwordResetToken).toBeDefined();
     expect(updatedUser.passwordResetExpires).toBeDefined();
 
     const resetToken = forgotRes.body.resetToken || plainResetToken;
-    const resetRes = await request(app)
-      .patch(`/api/v1/users/resetPassword/${resetToken}`)
-      .send({
-        password: 'newPassword123',
-        passwordConfirm: 'newPassword123',
-      });
+    const resetRes = await request(app).patch(`/api/v1/users/resetPassword/${resetToken}`).send({
+      password: 'newPassword123',
+      passwordConfirm: 'newPassword123',
+    });
 
     expect(resetRes.status).toBe(200);
     expect(resetRes.body.status || resetRes.body.token).toBeDefined();
@@ -76,12 +73,10 @@ describe('Auth - Password Reset Flow & Edge Cases', () => {
   });
 
   it('should reject password reset if token is invalid or expired', async () => {
-    const res = await request(app)
-      .patch('/api/v1/users/resetPassword/invalidtoken12345')
-      .send({
-        password: 'newPassword123',
-        passwordConfirm: 'newPassword123',
-      });
+    const res = await request(app).patch('/api/v1/users/resetPassword/invalidtoken12345').send({
+      password: 'newPassword123',
+      passwordConfirm: 'newPassword123',
+    });
 
     expect(res.status).toBe(400);
   });

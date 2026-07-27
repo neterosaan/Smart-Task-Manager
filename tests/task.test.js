@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest'
+import { describe, it, expect, beforeAll, beforeEach, afterAll } from 'vitest';
 
 import request from 'supertest';
 const app = require('../app');
@@ -19,7 +19,6 @@ describe('Tasks', () => {
     await disconnectTestDb();
   });
 
-
   const createUser = async (overrides = {}) => {
     const res = await request(app)
       .post('/api/v1/users/signup')
@@ -32,7 +31,7 @@ describe('Tasks', () => {
       });
     if (res.status !== 201) {
       throw new Error(
-        `createUser test helper failed: signup returned ${res.status} - ${JSON.stringify(res.body)}`,
+        `createUser test helper failed: signup returned ${res.status} - ${JSON.stringify(res.body)}`
       );
     }
     return { token: res.body.accessToken, userId: res.body.data.user._id };
@@ -136,8 +135,6 @@ describe('Tasks', () => {
   });
 
   describe('Ownership boundary (GET/PATCH/DELETE /api/v1/tasks/:id)', () => {
-
-
     const setupTwoUsersAndTask = async () => {
       const alice = await createUser();
       const bob = await createUser({ name: 'bobby', email: 'bob@test.com' });
@@ -188,7 +185,6 @@ describe('Tasks', () => {
     });
 
     it('does not reassign a task to another user via a PATCH body ("user" field)', async () => {
-
       const { alice, bob, taskId } = await setupTwoUsersAndTask();
 
       const res = await request(app)

@@ -43,14 +43,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/users/signup",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "users",
-                "signup"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "users", "signup"]
             }
           },
           "response": []
@@ -89,14 +83,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/users/login",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "users",
-                "login"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "users", "login"]
             }
           },
           "response": []
@@ -127,14 +115,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/users/updateMypassword",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "users",
-                "updateMypassword"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "users", "updateMypassword"]
             }
           },
           "response": []
@@ -158,14 +140,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/users/forgotPassword",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "users",
-                "forgotPassword"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "users", "forgotPassword"]
             }
           },
           "response": []
@@ -195,15 +171,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/users/resetPassword/{resetId}",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "users",
-                "resetPassword",
-                "{resetId}"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "users", "resetPassword", "{resetId}"]
             }
           },
           "response": []
@@ -233,14 +202,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/users/refresh-token",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "users",
-                "refresh-token"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "users", "refresh-token"]
             }
           },
           "response": []
@@ -264,14 +227,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/users/logout",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "users",
-                "logout"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "users", "logout"]
             }
           },
           "response": []
@@ -293,14 +250,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/users/me",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "users",
-                "me"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "users", "me"]
             }
           },
           "response": []
@@ -336,13 +287,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/tasks",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "tasks"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "tasks"]
             }
           },
           "response": []
@@ -364,14 +310,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/tasks/{taskId}",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "tasks",
-                "{taskId}"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "tasks", "{taskId}"]
             }
           },
           "response": []
@@ -393,13 +333,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/tasks",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "tasks"
-              ],
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "tasks"],
               "query": [
                 {
                   "key": "",
@@ -428,14 +363,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/tasks/{taskId}",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "tasks",
-                "{taskId}"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "tasks", "{taskId}"]
             }
           },
           "response": []
@@ -466,14 +395,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/tasks/{taskId}",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "tasks",
-                "{taskId}"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "tasks", "{taskId}"]
             }
           },
           "response": []
@@ -495,13 +418,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/tasks",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "tasks"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "tasks"]
             }
           },
           "response": []
@@ -537,13 +455,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/teams",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams"]
             }
           },
           "response": []
@@ -574,15 +487,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/{teamId}/tasks",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "{teamId}",
-                "tasks"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "{teamId}", "tasks"]
             }
           },
           "response": []
@@ -604,14 +510,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/invites",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "invites"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "invites"]
             }
           },
           "response": []
@@ -642,15 +542,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/{teamId}/invite",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "{teamId}",
-                "invite"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "{teamId}", "invite"]
             }
           },
           "response": []
@@ -672,16 +565,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/invites/{inviteId}/accept",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "invites",
-                "{inviteId}",
-                "accept"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "invites", "{inviteId}", "accept"]
             }
           },
           "response": []
@@ -703,16 +588,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/invites/{inviteId}/decline",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "invites",
-                "{inviteId}",
-                "decline"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "invites", "{inviteId}", "decline"]
             }
           },
           "response": []
@@ -734,14 +611,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/{teamId}",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "{teamId}"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "{teamId}"]
             }
           },
           "response": []
@@ -763,13 +634,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/teams",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams"]
             }
           },
           "response": []
@@ -791,16 +657,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/{teamId}/tasks/{taskId}",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "{teamId}",
-                "tasks",
-                "{taskId}"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "{teamId}", "tasks", "{taskId}"]
             }
           },
           "response": []
@@ -822,16 +680,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/{teamId}/tasks/",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "{teamId}",
-                "tasks",
-                ""
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "{teamId}", "tasks", ""]
             }
           },
           "response": []
@@ -853,16 +703,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/{teamId}/members/{memberId}",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "{teamId}",
-                "members",
-                "{memberId}"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "{teamId}", "members", "{memberId}"]
             }
           },
           "response": []
@@ -893,16 +735,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}api/v1/teams/{teamId}/tasks/{taskId}",
-              "host": [
-                "{{baseUrl}}api"
-              ],
-              "path": [
-                "v1",
-                "teams",
-                "{teamId}",
-                "tasks",
-                "{taskId}"
-              ]
+              "host": ["{{baseUrl}}api"],
+              "path": ["v1", "teams", "{teamId}", "tasks", "{taskId}"]
             }
           },
           "response": []
