@@ -1,0 +1,45 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27019:27017
+
+    env:
+      NODE_ENV: test
+      PORT: 5001
+      MONGO_URI: mongodb://127.0.0.1:27019/smart_task_manager_test
+      JWT_SECRET: ci_test_secret_do_not_use_in_prod
+      JWT_EXPIRES_IN: 15m
+      REFRESH_TOKEN_EXPIRES_IN_DAYS: 30
+      FRONTEND_URL: http://localhost:5173
+      EMAIL_FROM: test@test.com
+      EMAIL_HOST: smtp.test.com
+      EMAIL_PORT: 587
+      EMAIL_USERNAME: testuser
+      EMAIL_PASSWORD: testpass
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npx vitest run

@@ -1,0 +1,913 @@
+{
+  "info": {
+    "_postman_id": "fbe95567-6a06-49cf-97ec-de59141a5215",
+    "name": "Smart-Task-Manager",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38738160"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "user Signup",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.environment.set(\"authToken\", response.accessToken);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \"name\": \"zoro\",\r\n    \"email\": \"zoro@hotmail.com\",\r\n    \"password\": \"pass1234\",\r\n    \"passwordConfirm\":\"pass1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/users/signup",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "signup"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "user Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.environment.set(\"authToken\", response.accessToken);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"3tede@hotmail.com\",\r\n    \"password\": \"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/users/login",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Password",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "  {\r\n  \"passwordCurrent\": \"pass1234\",\r\n  \"password\": \"password\",\r\n  \"passwordConfirm\": \"password\"\r\n  }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/users/updateMypassword",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "updateMypassword"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"3tede@hotmail.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/users/forgotPassword",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "forgotPassword"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rest Password after Forgot",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{jwt}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"password\": \"password\",\r\n    \"passwordConfirm\":\"password\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/users/resetPassword/{resetId}",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "resetPassword",
+                "{resetId}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.environment.set(\"authToken\", response.accessToken);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/users/refresh-token",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Log out",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/users/logout",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/users/me",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "users",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "Create Task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"title\": \"firsdwdt task\",\r\n    \"description\": \"end this project\",\r\n    \"status\": \"Pending\",\r\n    \"dueDate\": \"2025-03-28\"\r\n    \r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/tasks",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/tasks/{taskId}",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "tasks",
+                "{taskId}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Tasks",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/tasks",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": null,
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/tasks/{taskId}",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "tasks",
+                "{taskId}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update Task",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"Unfinished\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/tasks/{taskId}",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "tasks",
+                "{taskId}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Unfinished Tasks",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/tasks",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Teams",
+      "item": [
+        {
+          "name": "Create Team",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"strawhat\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Task For Team",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"title\": \"invade\",\r\n    \"description\": \"end this project\",\r\n    \"status\": \"Pending\",\r\n    \"dueDate\": \"2027-09-28\",\r\n    \"name\": \"strawhat\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/{teamId}/tasks",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "{teamId}",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Invites",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/invites",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "invites"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Send Invite",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"username\": \"zoro\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/{teamId}/invite",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "{teamId}",
+                "invite"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Accept Invite",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/invites/{inviteId}/accept",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "invites",
+                "{inviteId}",
+                "accept"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Decline Invite",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/invites/{inviteId}/decline",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "invites",
+                "{inviteId}",
+                "decline"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Team",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/{teamId}",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "{teamId}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Teams",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Task For Team",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/{teamId}/tasks/{taskId}",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "{teamId}",
+                "tasks",
+                "{taskId}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "all tasks for the team",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/{teamId}/tasks/",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "{teamId}",
+                "tasks",
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Member",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/{teamId}/members/{memberId}",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "{teamId}",
+                "members",
+                "{memberId}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "CompleteTask",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"Completed\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/v1/teams/{teamId}/tasks/{taskId}",
+              "host": [
+                "{{baseUrl}}api"
+              ],
+              "path": [
+                "v1",
+                "teams",
+                "{teamId}",
+                "tasks",
+                "{taskId}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
