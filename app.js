@@ -23,6 +23,7 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
+app.set('trust proxy', 1);
 
 const generalLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
