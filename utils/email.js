@@ -1,57 +1,47 @@
-const nodemailer = require('nodemailer');
-
-module.exports = class Email {
+class Email {
   constructor(user, url) {
     this.to = user.email;
     this.firstName = user.name.split(' ')[0];
     this.url = url;
-    this.from = `netero<${process.env.EMAIL_FROM}>`;
+    this.from = `netero <${process.env.EMAIL_FROM}>`;
   }
-
-newTransport() {
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: Number(process.env.EMAIL_PORT),
-    auth: {
-      user: process.env.EMAIL_USERNAME,
-      pass: process.env.EMAIL_PASSWORD,
-    },
-  });
-
-  transporter.verify((error, success) => {
-    if (error) {
-      console.error('❌ SMTP connection failed:', error);
-    } else {
-      console.log('✅ SMTP connection successful:', success);
-    }
-  });
-
-  return transporter;
-}
 
   async send(subject, message) {
     if (process.env.NODE_ENV === 'test') {
       return;
     }
 
-    const mailOptions = {
-      from: this.from,
-      to: this.to,
-      subject,
-      text: message,
-      html: `<p>${message}</p>`,
-    };
+    const response = await fetch(
+      `https://sandbox.api.mailtrap.io/api/send/${process.env.MAILTRAP_INBOX_ID}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.MAILTRAP_API_TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: { email: process.env.EMAIL_FROM, name: 'Smart Task Manager' },
+          to: [{ email: this.to }],
+          subject,
+          text: message,
+          html: `<p>${message}</p>`,
+        }),
+      }
+    );
 
-    await this.newTransport().sendMail(mailOptions);
+    if (!response.ok) {
+      const errorBody = await response.text();
+      throw new Error(`Mailtrap API request failed (${response.status}): ${errorBody}`);
+    }
   }
 
   async sendWelcome() {
     await this.send(
       'welcome',
       `<h1>Welcome, ${this.firstName}!</h1>
-        <p>We're excited to have you onboard 🎉</p>
-        <p>Click <a href="${this.url}">here</a> to get started with your account.</p>
-        <p>Best regards, <br> The Smart Task Manager Team</p>`
+            <p>We're excited to have you onboard 🎉</p>
+            <p>Click <a href="${this.url}">here</a> to get started with your account.</p>
+            <p>Best regards, <br> The Smart Task Manager Team</p>`
     );
   }
 
@@ -77,4 +67,6 @@ newTransport() {
             <p>Best regards, <br> The Smart Task Manager Team</p>`
     );
   }
-};
+}
+
+module.exports = Email;
