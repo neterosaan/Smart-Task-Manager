@@ -8,22 +8,26 @@ module.exports = class Email {
     this.from = `netero<${process.env.EMAIL_FROM}>`;
   }
 
-  newTransport() {
-     console.log('📧 Email configuration:', {
+newTransport() {
+  const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    username: process.env.EMAIL_USERNAME ? 'EXISTS' : 'MISSING',
-    password: process.env.EMAIL_PASSWORD ? 'EXISTS' : 'MISSING',
+    port: Number(process.env.EMAIL_PORT),
+    auth: {
+      user: process.env.EMAIL_USERNAME,
+      pass: process.env.EMAIL_PASSWORD,
+    },
   });
-    return nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
-      },
-    });
-  }
+
+  transporter.verify((error, success) => {
+    if (error) {
+      console.error('❌ SMTP connection failed:', error);
+    } else {
+      console.log('✅ SMTP connection successful:', success);
+    }
+  });
+
+  return transporter;
+}
 
   async send(subject, message) {
     if (process.env.NODE_ENV === 'test') {
