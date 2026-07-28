@@ -9,6 +9,12 @@ module.exports = class Email {
   }
 
   newTransport() {
+     console.log('📧 Email configuration:', {
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    username: process.env.EMAIL_USERNAME ? 'EXISTS' : 'MISSING',
+    password: process.env.EMAIL_PASSWORD ? 'EXISTS' : 'MISSING',
+  });
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: process.env.EMAIL_PORT,
