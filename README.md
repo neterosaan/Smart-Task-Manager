@@ -97,7 +97,7 @@ sequenceDiagram
 **Requirements:** Node 22+, Docker (for the test database), a MongoDB instance (local or Atlas), a Mailtrap account (Email Testing/sandbox is sufficient for local dev).
 
 ```bash
-git clone https://github.com/neterosaan/Smart-Task-Manager.git
+git clone https://github.com/Ahmed-Amer02/Smart-Task-Manager.git
 cd Smart-Task-Manager
 npm install
 ```
